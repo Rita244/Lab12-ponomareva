@@ -12,3 +12,4 @@ C:\Users\ASUS\Documents\Lab12\obj\Debug\net10.0\refint\Lab12.dll
 C:\Users\ASUS\Documents\Lab12\obj\Debug\net10.0\Lab12.pdb
 C:\Users\ASUS\Documents\Lab12\obj\Debug\net10.0\Lab12.genruntimeconfig.cache
 C:\Users\ASUS\Documents\Lab12\obj\Debug\net10.0\ref\Lab12.dll
+C:\Users\ASUS\Documents\Lab12\obj\Debug\net10.0\Lab12.sourcelink.json

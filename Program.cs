@@ -1,29 +1,127 @@
-﻿using System;
+﻿// using System;
 
-enum Difficulty
+// enum Difficulty
+// {
+//     Easy,
+//     Normal,
+//     Hard
+// }
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         Console.Write("Введите название уровня сложности: ");
+//         string input = Console.ReadLine();
+
+//         bool success = Enum.TryParse(input, true, out Difficulty selectedLevel);
+
+//         if (success && Enum.IsDefined(typeof(Difficulty), selectedLevel))
+//         {
+//             Console.WriteLine("Значение введено корректно.");
+//             Console.WriteLine($"Выбран уровень: {selectedLevel}");
+//         }
+//         else
+//         {
+//             Console.WriteLine("Значение введено некорректно.");
+//         }
+//     }
+// }
+
+
+// ## Итоговая задача. Параметры персонажа
+
+using System;
+
+public enum CharacterClass
 {
-    Easy,
-    Normal,
-    Hard
+    Warrior,
+    Mage,
+    Archer
+}
+
+public class GameCharacter
+{
+    public string Name { get; set; }
+    public CharacterClass Class { get; set; }
+    public int? Age { get; set; }
+    public int? Wins { get; set; }
+    public double? Bonus { get; set; }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine("--- Персонаж ---");
+        Console.WriteLine($"Имя: {Name}");
+        Console.WriteLine($"Класс: {Class}");
+        Console.WriteLine($"Описание: {GetClassDescription(Class)}");
+        Console.WriteLine($"Возраст: {(Age.HasValue ? Age.ToString() : "не указан")}");
+        Console.WriteLine($"Победы: {(Wins.HasValue ? Wins.ToString() : "не указано")}");
+        Console.WriteLine($"Бонус: {(Bonus.HasValue ? Bonus.ToString() : "не указан")}");
+        Console.WriteLine("----------------");
+    }
+
+    private string GetClassDescription(CharacterClass charClass)
+    {
+        switch (charClass)
+        {
+            case CharacterClass.Warrior:
+                return "Использует меч";
+            case CharacterClass.Mage:
+                return "Использует магию";
+            case CharacterClass.Archer:
+                return "Использует лук";
+            default:
+                return "Неизвестный класс";
+        }
+    }
 }
 
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Console.Write("Введите название уровня сложности: ");
-        string input = Console.ReadLine();
+        GameCharacter hero = new GameCharacter();
 
-        bool success = Enum.TryParse(input, true, out Difficulty selectedLevel);
+        Console.Write("Имя: ");
+        hero.Name = Console.ReadLine();
 
-        if (success && Enum.IsDefined(typeof(Difficulty), selectedLevel))
+        Console.Write("Класс (Warrior/Mage/Archer): ");
+        string classInput = Console.ReadLine();
+        
+        if (Enum.TryParse(classInput, true, out CharacterClass parsedClass))
         {
-            Console.WriteLine("Значение введено корректно.");
-            Console.WriteLine($"Выбран уровень: {selectedLevel}");
+            hero.Class = parsedClass;
         }
         else
         {
-            Console.WriteLine("Значение введено некорректно.");
+            Console.WriteLine("Ошибка: Неверный класс. Установлен по умолчанию (Warrior).");
+            hero.Class = CharacterClass.Warrior;
         }
+
+        Console.Write("Возраст: ");
+        string ageInput = Console.ReadLine();
+        if (int.TryParse(ageInput, out int age))
+        {
+            hero.Age = age;
+        }
+        else
+        {
+            hero.Age = null;
+        }
+
+        Console.Write("Количество побед: ");
+        string winsInput = Console.ReadLine();
+        if (int.TryParse(winsInput, out int wins))
+        {
+            hero.Wins = wins;
+        }
+        else
+        {
+            hero.Wins = null;
+        }
+
+        hero.Bonus = 1.5;
+
+        hero.DisplayInfo();
     }
 }
